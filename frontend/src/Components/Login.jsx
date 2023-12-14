@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { authActions } from '../Store';
-import { useDispatch } from 'react-redux';
+import { useContext } from 'react';
+import { Logcontext } from '../Context/LogContext';
+// import { authActions } from '../Store';
+// import { useDispatch } from 'react-redux';
 
 const Login = () => {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
+  const { login } = useContext(Logcontext)
 
     const navigate = useNavigate();
     const [formData , setFormData] = useState({
@@ -38,7 +41,8 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         senderFunction()
-        .then(() => dispatch(authActions.login()))
+        .then(()=>login())
+        // .then(() => dispatch(authActions.login()))
         .then(() => navigate("/home"))
     }
 

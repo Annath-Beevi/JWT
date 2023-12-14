@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import { Outlet, Link } from 'react-router-dom';
 import { AppBar, Box, Tabs, Toolbar, Typography, Tab } from "@mui/material"
-import {useSelector} from 'react-redux'
+// import {useSelector} from 'react-redux'
 import { authActions} from '../Store/index'
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import axios from "axios"
+import { useContext } from 'react';
+import { Logcontext } from '../Context/LogContext';
 
 axios.defaults.withCredentials = true;
 
 const Navigation = () => {
 
-    const dispatch = useDispatch()
+    const {isLoggedIn, logout} = useContext(Logcontext)
 
-    const isLoggedIn = useSelector((state) => state.isLoggedIn);
-    console.log(isLoggedIn)
+    // const dispatch = useDispatch()
+
+    // const isLoggedIn = useSelector((state) => state.isLoggedIn);
+    // console.log(isLoggedIn)
 
     const [value, setValue] = useState();
 
@@ -28,7 +32,8 @@ const Navigation = () => {
     }
 
     const logoutHandler = () => {
-        onRequestSender().then(() => dispatch(authActions.logout()))
+        onRequestSender().then(() => logout())
+        // onRequestSender().then(() => dispatch(authActions.logout()))
     }
 
   return (
